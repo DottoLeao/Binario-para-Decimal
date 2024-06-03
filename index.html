@@ -1,161 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./app.js"></script>
     <title>Bin2Dec</title>
-    <style>
-        body {
-            font-family: "Roboto", sans-serif;
-            font-weight: 100;
-            font-style: normal;
-            background-color: #f7f7f7;
-            text-align: center;
-            padding-top: 50px;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            background-color: #fff;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(105, 255, 190, 0.505);
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 18px;
-            display: block;
-            margin-bottom: 10px;
-            color: #666;
-        }
-
-        .input-container {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 20px;
-        }
-
-        .input-container input {
-            width: 40px;
-            height: 40px;
-            padding: 10px;
-            font-size: 16px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px #69ffbe81;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        button.disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        #resultado {
-            font-size: 24px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Bin2Dec - Conversor de Binário para Decimal</h1>
-        <label for="binaryInput">Digite o número binário:</label>
-        <div class="input-container" id="binaryInput">
-            <input type="text" maxlength="1" oninput="handleInput(event, 0)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 1)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 2)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 3)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 4)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 5)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 6)">
-            <input type="text" maxlength="1" oninput="handleInput(event, 7)">
-        </div>
-        <button id="convertButton" class="disabled" onclick="converterBinarioParaDecimal()">Converter</button>
-        <button onclick="resetInputs()">Reset</button>
-        <div id="resultado"></div>
+      <h1>Bin2Dec - Conversor de Binário para Decimal</h1>
+      <label for="binaryInput">Digite o número binário:</label>
+      <div class="input-container" id="binaryInput">
+        <input type="text" maxlength="1" oninput="handleInput(event, 0)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 1)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 2)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 3)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 4)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 5)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 6)" />
+        <input type="text" maxlength="1" oninput="handleInput(event, 7)" />
+      </div>
+      <button
+        id="convertButton"
+        class="disabled"
+        onclick="converterBinarioParaDecimal()"
+      >
+        Converter
+      </button>
+      <button onclick="resetInputs()">Reset</button>
+      <div id="resultado"></div>
     </div>
-
-    <script>
-        function handleInput(event, index) {
-            const inputs = document.querySelectorAll('.input-container input');
-            const currentInput = event.target;
-            if (currentInput.value.length === 1 && index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            }
-
-            checkAllInputsFilled();
-        }
-
-        function checkAllInputsFilled() {
-            const inputs = document.querySelectorAll('.input-container input');
-            const button = document.getElementById('convertButton');
-            let allFilled = true;
-
-            inputs.forEach(input => {
-                if (input.value === '') {
-                    allFilled = false;
-                }
-            });
-
-            if (allFilled) {
-                button.classList.remove('disabled');
-            } else {
-                button.classList.add('disabled');
-            }
-        }
-
-        function converterBinarioParaDecimal() {
-            const button = document.getElementById('convertButton');
-            if (button.classList.contains('disabled')) {
-                return;
-            }
-
-            const inputs = document.querySelectorAll('.input-container input');
-            let binario = '';
-            inputs.forEach(input => {
-                binario += input.value;
-            });
-
-            const decimal = parseInt(binario, 2);
-            if (!isNaN(decimal)) {
-                document.getElementById('resultado').textContent = 'Decimal equivalente: ' + decimal;
-            } else {
-                document.getElementById('resultado').textContent = 'Por favor, insira um número binário válido.';
-            }
-        }
-
-        function resetInputs() {
-            const inputs = document.querySelectorAll('.input-container input');
-            inputs.forEach(input => {
-                input.value = '';
-            });
-            document.getElementById('resultado').textContent = '';
-            document.getElementById('convertButton').classList.add('disabled');
-            inputs[0].focus();
-        }
-    </script>
-</body>
+  </body>
 </html>
